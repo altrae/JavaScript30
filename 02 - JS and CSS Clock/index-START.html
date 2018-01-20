@@ -1,74 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JS + CSS Clock</title>
+	<meta charset="UTF-8">
+	<title>JS + CSS Clock</title>
+
+	<style>
+		html {
+			background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+			background-size: cover;
+			font-family: 'helvetica neue';
+			text-align: center;
+			font-size: 10px;
+		}
+
+		body {
+			margin: 0;
+			font-size: 2rem;
+			display: flex;
+			flex: 1;
+			min-height: 100vh;
+			align-items: center;
+		}
+
+		.clock {
+			width: 30rem;
+			height: 30rem;
+			border: 25px solid white;
+			border-radius: 50%;
+			margin: 50px auto;
+			position: relative;
+			padding: 2rem;
+			box-shadow:
+					0 0 0 4px rgba(0, 0, 0, 0.1),
+					inset 0 0 0 3px #EFEFEF,
+					inset 0 0 10px black,
+					0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.clock-face {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transform: translateY(-3px); /* account for the height of the clock hands */
+		}
+
+		.hand {
+			border-radius: 75%;
+			height: 6px;
+			background: black;
+			position: absolute;
+			top: 50%;
+			width: 50%;
+
+			-webkit-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			-o-transform: rotate(90deg);
+			transform: rotate(90deg);
+
+			-webkit-transform-origin: 100%;
+			-moz-transform-origin: 100%;
+			-ms-transform-origin: 100%;
+			-o-transform-origin: 100%;
+			transform-origin: 100%;
+
+			-webkit-transition-timing-function: cubic-bezier(0.1, 2.7, .58, 1);
+			-moz-transition-timing-function: cubic-bezier(0.1, 2.7, .58, 1);
+			-ms-transition-timing-function: cubic-bezier(0.1, 2.7, .58, 1);
+			-o-transition-timing-function: cubic-bezier(0.1, 2.7, .58, 1);
+			transition-timing-function: cubic-bezier(0.1, 2.7, .58, 1);
+
+			-webkit-transition: all .5s;
+			-moz-transition: all .5s;
+			-ms-transition: all .5s;
+			-o-transition: all .5s;
+			transition: all .5s;
+		}
+
+		.hand.hour-hand {
+			background-color: yellow;
+		}
+
+		.hand.minute-hand {
+			background-color: green;
+		}
+
+		.hand.second-hand {
+			background-color: red;
+		}
+
+		.clock ol {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.clock ol li[data-point]:before {
+			font-size: .9em;
+			position: absolute;
+			height: 1em;
+			width: 1em;
+		}
+
+		.clock ol [data-point="1"]:before {
+			content: '\2160';
+			right: 19%;
+			top: -6%;
+		}
+
+		.clock ol [data-point="2"]:before {
+			content: '\2161';
+			right: -5%;
+			top: 17.5%;
+		}
+
+		.clock ol [data-point="3"]:before {
+			content: '\2162';
+			top: 47%;
+			right: -13.5%;
+		}
+
+		.clock ol [data-point="4"]:before {
+			content: '\2163';
+			bottom: 14%;
+			right: -4.5%
+		}
+
+		.clock ol [data-point="5"]:before {
+			content: '\2164';
+			bottom: -6%;
+			right: 16%;
+		}
+
+		.clock ol [data-point="6"]:before {
+			content: '\2165';
+			bottom: -14.5%;
+			left: 49%;
+		}
+
+		.clock ol [data-point="7"]:before {
+			content: '\2166';
+			bottom: -6%;
+			left: 17%;
+		}
+
+		.clock ol [data-point="8"]:before {
+			content: '\2167';
+			bottom: 14%;
+			left: -6%;
+		}
+
+		.clock ol [data-point="9"]:before {
+			content: '\2168';
+			top: 47%;
+			left: -13.5%;
+		}
+
+		.clock ol [data-point="10"]:before {
+			content: '\2169';
+			left: -6%;
+			top: 17.5%;
+		}
+
+		.clock ol [data-point="11"]:before {
+			content: '\2169\2160';
+			left: 18%;
+			top: -6%;
+		}
+
+		.clock ol [data-point="12"]:before {
+			content: '\2169\2161';
+			left: 45%;
+			top: -13%;
+		}
+	</style>
 </head>
 <body>
+<div class="clock">
+	<div class="clock-face">
+		<div class="hand hour-hand"></div>
+		<div class="hand minute-hand"></div>
+		<div class="hand second-hand"></div>
 
-
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
-        <div class="hand second-hand"></div>
-      </div>
-    </div>
-
-
-  <style>
-    html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size:cover;
-      font-family:'helvetica neue';
-      text-align: center;
-      font-size: 10px;
-    }
-
-    body {
-      margin: 0;
-      font-size: 2rem;
-      display:flex;
-      flex:1;
-      min-height: 100vh;
-      align-items: center;
-    }
-
-    .clock {
-      width: 30rem;
-      height: 30rem;
-      border:20px solid white;
-      border-radius:50%;
-      margin:50px auto;
-      position: relative;
-      padding:2rem;
-      box-shadow:
-        0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
-        0 0 10px rgba(0,0,0,0.2);
-    }
-
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
-    }
-
-    .hand {
-      width:50%;
-      height:6px;
-      background:black;
-      position: absolute;
-      top:50%;
-    }
-
-  </style>
-
-  <script>
-
-
-  </script>
+		<ol class="clock-points">
+			<li data-point="1"></li>
+			<li data-point="2"></li>
+			<li data-point="3"></li>
+			<li data-point="4"></li>
+			<li data-point="5"></li>
+			<li data-point="6"></li>
+			<li data-point="7"></li>
+			<li data-point="8"></li>
+			<li data-point="9"></li>
+			<li data-point="10"></li>
+			<li data-point="11"></li>
+			<li data-point="12"></li>
+		</ol>
+	</div>
+</div>
 </body>
 </html>
+
+<script>
+	(() => {
+		const SET_TIME = () => {
+			const HOUR_HAND = document.querySelector('.hour-hand');
+			const MINUTE_HAND = document.querySelector('.minute-hand');
+			const SECOND_HAND = document.querySelector('.second-hand');
+
+			const GET_DEGREE = (timeUnit, hand) => {
+				if (timeUnit === 0) {
+					hand.style.transition = `none`;
+				}
+
+				if (hand.classList.contains('hour-hand')) {
+					return ((timeUnit / 12) * 360) + 90;
+				}
+
+				return ((timeUnit / 60) * 360) + 90;
+			};
+
+			const SET_HAND = hand => {
+				const DATE = new Date();
+				const HOUR = DATE.getHours();
+				const MINUTE = DATE.getMinutes();
+				const SECOND = DATE.getSeconds();
+
+				console.log(GET_DEGREE(HOUR, HOUR_HAND));
+
+				if (hand.classList.contains('hour-hand')) {
+					hand.style.transform = `rotate(${GET_DEGREE(HOUR, HOUR_HAND)}deg)`;
+				} else if (hand.classList.contains('minute-hand')) {
+					hand.style.transform = `rotate(${GET_DEGREE(MINUTE, MINUTE_HAND)}deg)`;
+				} else {
+					hand.style.transform = `rotate(${GET_DEGREE(SECOND, SECOND_HAND)}deg)`;
+				}
+			};
+
+			SET_HAND(HOUR_HAND);
+			SET_HAND(MINUTE_HAND);
+			SET_HAND(SECOND_HAND);
+		};
+
+		setInterval(() => SET_TIME(), 1000);
+
+		SET_TIME();
+	})();
+</script>
