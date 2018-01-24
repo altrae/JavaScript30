@@ -169,7 +169,30 @@
 
 		// 8. Reduce Exercise
 		// Sum up the instances of each of these
-		const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
-		//	const dataSort = data.reduce((total) => {});
+		const DATA = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+		const DATA_SORT = DATA.reduce((object, name) => {
+			if (name in object) {
+				object[name]++;
+			} else {
+				object[name] = 1;
+			}
+
+			return object;
+		}, {});
+		const SUM = object => {
+			let sum = 0;
+
+			for (let key in object) {
+				if (object.hasOwnProperty(key)) {
+					sum += object[key];
+				}
+			}
+
+			return sum;
+		};
+
+		console.log('DATA_SORT');
+		console.log(DATA_SORT);
+		console.log(SUM(DATA_SORT));
 	});
 </script>
